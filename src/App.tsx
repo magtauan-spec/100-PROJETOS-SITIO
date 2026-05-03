@@ -152,6 +152,13 @@ export default function App() {
     return new Date().toLocaleDateString('pt-BR');
   }, []);
 
+  const getRedirectUrl = (baseUrl: string) => {
+    const search = window.location.search;
+    if (!search) return baseUrl;
+    const separator = baseUrl.includes('?') ? '&' : '?';
+    return `${baseUrl}${separator}${search.substring(1)}`;
+  };
+
   const scrollToOffer = () => {
     trackIC();
     const offerSection = document.getElementById('offer');
@@ -524,7 +531,7 @@ export default function App() {
                 <Button 
                   onClick={() => {
                     trackPurchase(9.90, 'Plano Básico');
-                    window.location.href = 'https://pay.cakto.com.br/be9evgt';
+                    window.location.href = getRedirectUrl('https://pay.cakto.com.br/be9evgt');
                   }} 
                   className="w-full"
                 >
@@ -562,13 +569,21 @@ export default function App() {
                   <Button 
                     onClick={() => {
                       trackPurchase(27.00, 'Plano Completo');
-                      window.location.href = 'https://pay.cakto.com.br/xzp55mc_870375';
+                      window.location.href = getRedirectUrl('https://pay.cakto.com.br/xzp55mc_870375');
                     }}
                     className="w-full bg-brand-lime hover:bg-[#A3E635] shadow-xl shadow-brand-lime/20 text-black font-bold"
                   >
                     QUERO ADQUIRIR O MEU <ChevronRight className="w-5 h-5" />
                   </Button>
                 </motion.div>
+                <div className="mt-4">
+                  <p className="text-brand-red font-black text-xs uppercase mb-1">
+                    🔥 APROVEITE AGORA: Você não vai encontrar esse preço depois!
+                  </p>
+                  <p className="text-gray-500 text-[10px] font-bold">
+                    7 dias de garantia incondicional
+                  </p>
+                </div>
               </div>
             </div>
           </div>
