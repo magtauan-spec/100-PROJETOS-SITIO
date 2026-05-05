@@ -48,6 +48,23 @@ const Card = ({ children, className = "", ...props }: React.HTMLAttributes<HTMLD
 
 export default function App() {
   const [activeFAQ, setActiveFAQ] = useState<number | null>(null);
+  const [showUpsell, setShowUpsell] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(899); // 14:59 in seconds
+
+  useEffect(() => {
+    if (showUpsell && timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [showUpsell, timeLeft]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   useEffect(() => {
     // Meta Pixel Code
@@ -530,8 +547,8 @@ export default function App() {
                 <p className="text-xs text-gray-500 mb-8">pagamento único</p>
                 <Button 
                   onClick={() => {
-                    trackPurchase(9.90, 'Plano Básico');
-                    window.location.href = getRedirectUrl('https://pay.cakto.com.br/be9evgt');
+                    trackIC();
+                    setShowUpsell(true);
                   }} 
                   className="w-full"
                 >
@@ -705,6 +722,95 @@ export default function App() {
         </div>
       </footer>
       <SocialProof />
+
+      {/* Upsell Popup */}
+      <AnimatePresence>
+        {showUpsell && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowUpsell(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative bg-zinc-900 border border-brand-lime/20 w-full max-w-lg rounded-[2rem] p-8 md:p-12 text-center shadow-2xl shadow-brand-lime/10 overflow-hidden"
+            >
+              {/* Highlight Background Effect */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-1 bg-brand-lime" />
+              
+              <h2 className="text-2xl md:text-3xl font-black text-white uppercase mb-4 leading-tight">
+                ESPERA, PATRÃO… <br />
+                <span className="text-brand-lime">NÃO COMPRA AINDA</span>
+              </h2>
+              
+              <p className="text-zinc-400 font-medium mb-6 text-sm md:text-base px-4">
+                Por praticamente o mesmo valor, você leva tudo completo e evita erro no seu sítio
+              </p>
+              
+              <div className="flex items-center justify-center gap-2 mb-8">
+                <div className="bg-brand-red/10 border border-brand-red/20 text-brand-red px-4 py-2 rounded-xl flex items-center gap-2 font-black text-xs md:text-sm">
+                  <Clock className="w-4 h-4 animate-pulse" />
+                  A oferta expira em: {formatTime(timeLeft)}
+                </div>
+              </div>
+              
+              <div className="space-y-3 mb-8 text-left max-w-xs mx-auto">
+                {[
+                  "+100 Projetos + Bônus Exclusivos",
+                  "Planilha de ROI (Lucro Estimado)",
+                  "Plantas de Construções Rurais",
+                  "Atualizações Gratuitas"
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-2 text-white font-bold text-xs md:text-sm">
+                    <Check className="w-5 h-5 text-brand-lime shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mb-8">
+                <p className="text-zinc-500 line-through text-xs md:text-sm font-bold mb-1 uppercase">De R$197,00</p>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-brand-lime text-2xl font-black uppercase">Por apenas</span>
+                  <span className="text-4xl md:text-5xl font-black text-white leading-none">R$19,90</span>
+                </div>
+              </div>
+              
+              <div className="flex flex-col gap-4">
+                <motion.div
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                >
+                  <Button
+                    onClick={() => {
+                      trackPurchase(19.90, 'Upsell Plano Pro');
+                      window.location.href = getRedirectUrl('https://pay.cakto.com.br/fzocrfs');
+                    }}
+                    className="w-full bg-brand-lime hover:bg-lime-400 text-black shadow-xl shadow-brand-lime/20"
+                  >
+                    QUERO O COMPLETO E EVITAR ERRO
+                  </Button>
+                </motion.div>
+                
+                <button
+                  onClick={() => {
+                    trackPurchase(9.90, 'Plano Básico');
+                    window.location.href = getRedirectUrl('https://pay.cakto.com.br/be9evgt');
+                  }}
+                  className="text-zinc-500 hover:text-white text-xs font-bold uppercase transition-colors"
+                >
+                  Não, quero continuar no plano básico
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
