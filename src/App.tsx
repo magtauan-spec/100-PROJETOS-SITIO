@@ -212,15 +212,16 @@ export default function App() {
             <span className="text-brand-lime underline">e Fazer Ela Produzir Mais</span>
           </h1>
 
+          <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl font-medium">
+            Pare de perder dinheiro com terra mal aproveitada. Use <span className="font-bold text-white">projetos prontos</span> e comece a organizar seu sítio ainda hoje.
+          </p>
+
           <div 
             className="w-full mb-8"
             dangerouslySetInnerHTML={{ 
               __html: '<vturb-smartplayer id="vid-69feaa705ecd720a09c951e9" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>' 
             }}
           />
-          <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl">
-            Pare de perder dinheiro com terra mal aproveitada. Use <span className="font-bold text-white">projetos prontos</span> e comece a organizar seu sítio ainda hoje.
-          </p>
           
           <div className="flex flex-col items-center gap-6 mb-10">
             <div className="flex items-center gap-2 bg-white/5 py-2 px-4 rounded-full border border-white/10">
