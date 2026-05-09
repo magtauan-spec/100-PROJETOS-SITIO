@@ -88,6 +88,16 @@ export default function App() {
     fbPixel(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
     (window as any).fbq('init', '2146611192860732');
     (window as any).fbq('track', 'PageView');
+
+    // VTurb Player Script
+    const vturbScript = document.createElement("script");
+    vturbScript.src = "https://scripts.converteai.net/4d94dca7-0df9-4194-9402-62576c881508/players/69feaa705ecd720a09c951e9/v4/player.js";
+    vturbScript.async = true;
+    document.head.appendChild(vturbScript);
+
+    return () => {
+      document.head.removeChild(vturbScript);
+    };
   }, []);
 
   const trackIC = () => {
@@ -195,24 +205,19 @@ export default function App() {
       {/* 2. Hero Section */}
       <section className="bg-gradient-hero pt-12 pb-20 px-4">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
-          >
-            <img 
-              src="https://i.imgur.com/td8Wxbl.png" 
-              alt="Kit Sítio Produtivo Prime"
-              id="hero-product-image"
-              className="w-full max-w-2xl h-auto"
-              referrerPolicy="no-referrer"
-            />
-          </motion.div>
+
 
           <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6">
             +100 Projetos de Sítios Produtivos com Medidas Reais <br />
-            <span className="text-brand-lime underline">Para Transformar Terra Parada em Fonte de Renda</span>
+            <span className="text-brand-lime underline">Para Transformar Sua Terra Parada em Fonte de Renda</span>
           </h1>
+
+          <div 
+            className="w-full mb-8"
+            dangerouslySetInnerHTML={{ 
+              __html: '<vturb-smartplayer id="vid-69feaa705ecd720a09c951e9" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>' 
+            }}
+          />
           <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl">
             Pare de perder dinheiro com terra mal aproveitada. Use <span className="font-bold text-white">projetos prontos</span> e comece a organizar seu sítio ainda hoje.
           </p>
