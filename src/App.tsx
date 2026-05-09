@@ -52,6 +52,14 @@ export default function App() {
   const [timeLeft, setTimeLeft] = useState(899); // 14:59 in seconds
 
   useEffect(() => {
+    // VTurb Player script
+    const s = document.createElement("script");
+    s.src = "https://scripts.converteai.net/4d94dca7-0df9-4194-9402-62576c881508/players/69feaa705ecd720a09c951e9/v4/player.js";
+    s.async = true;
+    document.head.appendChild(s);
+  }, []);
+
+  useEffect(() => {
     if (showUpsell && timeLeft > 0) {
       const timer = setInterval(() => {
         setTimeLeft(prev => prev - 1);
@@ -88,16 +96,6 @@ export default function App() {
     fbPixel(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
     (window as any).fbq('init', '2146611192860732');
     (window as any).fbq('track', 'PageView');
-
-    // VTurb Player Script
-    const vturbScript = document.createElement("script");
-    vturbScript.src = "https://scripts.converteai.net/4d94dca7-0df9-4194-9402-62576c881508/players/69feaa705ecd720a09c951e9/v4/player.js";
-    vturbScript.async = true;
-    document.head.appendChild(vturbScript);
-
-    return () => {
-      document.head.removeChild(vturbScript);
-    };
   }, []);
 
   const trackIC = () => {
@@ -136,7 +134,7 @@ export default function App() {
     { 
       id: 1, 
       label: "BÔNUS HOJE!", 
-      title: "Estruturas Que Mais Dão Retorno no Sítio", 
+      title: "PROJETOS DE CONSTRUÇÃO RURAL", 
       desc: "Plantas detalhadas para galpões, cercas e pequenas pontes para otimizar sua estrutura.",
       img: "https://i.imgur.com/Fe1VTIy.jpeg"
     },
@@ -157,7 +155,7 @@ export default function App() {
     { 
       id: 4, 
       label: "BÔNUS HOJE!", 
-      title: "Como Economizar no Sítio Sem Gastar Muito", 
+      title: "MANUAL DE ENERGIA RURAL", 
       desc: "Como implementar soluções simples de energia solar e biodigestores no seu sítio.",
       img: "https://i.imgur.com/8OaS0ip.jpeg"
     },
@@ -205,23 +203,19 @@ export default function App() {
       {/* 2. Hero Section */}
       <section className="bg-gradient-hero pt-12 pb-20 px-4">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-
-
           <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6">
-            +100 Projetos Prontos Para Organizar Sua Terra <br />
-            <span className="text-brand-lime underline">e Fazer Ela Produzir Mais</span>
+            +100 Projetos de Sítios Produtivos com Medidas Reais <br />
+            <span className="text-brand-lime underline">Para Transformar Terra Parada em Fonte de Renda</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl font-medium">
+          <div className="w-full mb-8">
+            <div dangerouslySetInnerHTML={{ __html: `
+              <vturb-smartplayer id="vid-69feaa705ecd720a09c951e9" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
+            `}} />
+          </div>
+          <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl">
             Pare de perder dinheiro com terra mal aproveitada. Use <span className="font-bold text-white">projetos prontos</span> e comece a organizar seu sítio ainda hoje.
           </p>
-
-          <div 
-            className="w-full mb-8"
-            dangerouslySetInnerHTML={{ 
-              __html: '<vturb-smartplayer id="vid-69feaa705ecd720a09c951e9" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>' 
-            }}
-          />
           
           <div className="flex flex-col items-center gap-6 mb-10">
             <div className="flex items-center gap-2 bg-white/5 py-2 px-4 rounded-full border border-white/10">
@@ -232,9 +226,6 @@ export default function App() {
               <img src="https://centraldaeducacao.site/assets/icon-whatsapp-Cl5KKOau.avif" className="w-10 h-10 object-contain" alt="WhatsApp" referrerPolicy="no-referrer" />
               <img src="https://i.imgur.com/9SMb1ES.jpeg" className="w-10 h-10 object-contain" alt="E-mail" referrerPolicy="no-referrer" />
             </div>
-            <Button onClick={scrollToOffer} className="mt-4 w-full max-w-sm">
-              QUERO GARANTIR O MEU
-            </Button>
           </div>
         </div>
       </section>
@@ -283,7 +274,7 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <Card className="flex flex-col items-center text-center">
               <BookOpen className="w-10 h-10 text-brand-lime mb-4" />
-              <h3 className="font-bold text-xl mb-2">PARE DE GASTAR DINHEIRO NO IMPROVISO</h3>
+              <h3 className="font-bold text-xl mb-2">PLANEJE COM VISÃO PROFISSIONAL</h3>
               <p className="text-sm text-gray-400">Pare de tentar adivinhar o que fazer com seu terreno. Agora você segue projetos prontos com divisão estratégica.</p>
             </Card>
             <Card className="flex flex-col items-center text-center">
@@ -298,7 +289,7 @@ export default function App() {
             </Card>
             <Card className="flex flex-col items-center text-center">
               <Clock className="w-10 h-10 text-brand-lime mb-4" />
-              <h3 className="font-bold text-xl mb-2">PEGUE A TRENA E COMECE A ORGANIZAR</h3>
+              <h3 className="font-bold text-xl mb-2">COMECE EM MINUTOS</h3>
               <p className="text-sm text-gray-400">Abra o projeto e aplique direto no seu terreno. Receba tudo na hora no WhatsApp e e-mail.</p>
             </Card>
           </div>
@@ -438,7 +429,7 @@ export default function App() {
               { icon: Smartphone, title: "Tem sítio ou terreno e quer gerar renda", desc: "Você tem a terra, mas ela está parada ou subutilizada. Nossos projetos mostram como rentabilizar cada metro." },
               { icon: Clock, title: "Não sabe como dividir a área", desc: "Dúvida sobre onde plantar, onde criar animais ou onde construir? Os layouts resolvem a organização do espaço." },
               { icon: Target, title: "Quer parar de perder dinheiro", desc: "Investir sem plano é prejuízo certo. Com medidas reais, você evita gastos desnecessários com erro de execução." },
-              { icon: MessageCircle, title: "Quer algo pronto e aplicável", desc: "Sem teorias complexas. Você recebe a planta, pega a trena e começa a marcar seu novo sítio lucrativo." },
+              { icon: MessageCircle, title: "Quer algo pronto e aplicável", desc: "Sem teorias complexas. Você recebe a planta, pega a trena e começa a marcar seu novo sítio produtivo." },
             ].map((item, idx) => (
               <div key={idx} className="p-8 bg-blue-50 rounded-3xl border border-blue-100 flex flex-col items-start gap-4">
                 <div className="bg-blue-600 text-white p-3 rounded-2xl">
@@ -472,7 +463,7 @@ export default function App() {
                 ITEM 01
               </div>
               <h3 className="text-4xl font-black mb-6 uppercase leading-tight">
-                KIT +100 PROJETOS <br /> DE SÍTIO LUCRATIVO
+                KIT +100 PROJETOS <br /> DE SÍTIO PRODUTIVO
               </h3>
               <p className="font-bold mb-8 italic">O guia prático para transformar sua terra em um negócio lucrativo.</p>
               
@@ -547,7 +538,7 @@ export default function App() {
               <h3 className="text-2xl font-black uppercase mb-8">PLANO BÁSICO</h3>
               <img src="https://i.imgur.com/td8Wxbl.png" className="w-48 mb-8" alt="Básico" />
               <ul className="space-y-4 mb-12 w-full text-left text-sm">
-                <li className="flex gap-2"><Check className="w-5 h-5 text-lime-500 shrink-0" /> +100 Projetos de Sítio Lucrativo</li>
+                <li className="flex gap-2"><Check className="w-5 h-5 text-lime-500 shrink-0" /> +100 Projetos de Sítio Produtivo</li>
                 <li className="flex gap-2 text-gray-300 italic"><X className="w-5 h-5 text-gray-300 shrink-0" /> Sem os 4 Bônus Exclusivos</li>
               </ul>
               <div className="mt-auto">
@@ -577,7 +568,7 @@ export default function App() {
                 TODOS OS BÔNUS INCLUSOS
               </div>
               <ul className="space-y-2 mb-12 w-full text-left text-sm overflow-y-auto max-h-60">
-                <li className="flex gap-2"><Check className="w-5 h-5 text-lime-500 shrink-0" /> +100 Projetos de Sítio Lucrativo</li>
+                <li className="flex gap-2"><Check className="w-5 h-5 text-lime-500 shrink-0" /> +100 Projetos de Sítio Produtivo</li>
                 <li className="flex gap-2"><Check className="w-5 h-5 text-lime-500 shrink-0" /> Bônus #1: Construção Rural</li>
                 <li className="flex gap-2"><Check className="w-5 h-5 text-lime-500 shrink-0" /> Bônus #2: Planilha de Lucros</li>
                 <li className="flex gap-2"><Check className="w-5 h-5 text-lime-500 shrink-0" /> Bônus #3: Guia de Plantio Inteligente</li>
@@ -719,8 +710,8 @@ export default function App() {
       {/* 15. Footer */}
       <footer className="bg-white text-black py-12 px-4 border-t border-gray-100 italic text-center">
         <div className="max-w-4xl mx-auto">
-          <h4 className="font-black text-3xl mb-8 uppercase tracking-tighter">Terra Rentável</h4>
-          <p className="text-xs text-gray-500 mb-4 opacity-50 uppercase tracking-widest font-bold">© 2026 Terra Rentável. Todos os direitos reservados.</p>
+          <h4 className="font-black text-2xl mb-8">SÍTIO PRODUTIVO <span className="text-brand-blue">PRIME</span></h4>
+          <p className="text-xs text-gray-500 mb-4 opacity-50 uppercase tracking-widest font-bold">© 2026 Sítio Produtivo Prime. Todos os direitos reservados.</p>
           <div className="flex justify-center gap-6 text-[10px] text-gray-500 font-bold uppercase mb-8 not-italic">
             <a href="#" className="hover:text-black">Termos de Uso</a>
             <a href="#" className="hover:text-black">Políticas de Privacidade</a>
