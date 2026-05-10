@@ -203,7 +203,7 @@ export default function App() {
       {/* 2. Hero Section */}
       <section className="bg-gradient-hero pt-12 pb-20 px-4">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-          <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6">
+          <h1 className="text-3xl md:text-5xl font-black leading-tight mb-6">
             +100 Projetos de Sítios Produtivos com Medidas Reais <br />
             <span className="text-brand-lime underline">Para Transformar Terra Parada em Fonte de Renda</span>
           </h1>
@@ -226,6 +226,9 @@ export default function App() {
               <img src="https://centraldaeducacao.site/assets/icon-whatsapp-Cl5KKOau.avif" className="w-10 h-10 object-contain" alt="WhatsApp" referrerPolicy="no-referrer" />
               <img src="https://i.imgur.com/9SMb1ES.jpeg" className="w-10 h-10 object-contain" alt="E-mail" referrerPolicy="no-referrer" />
             </div>
+            <Button onClick={scrollToOffer} className="w-full max-w-sm">
+              QUERO OS PROJETOS AGORA
+            </Button>
           </div>
         </div>
       </section>
@@ -789,7 +792,7 @@ export default function App() {
                   <Button
                     onClick={() => {
                       trackPurchase(19.90, 'Upsell Plano Pro');
-                      window.location.href = getRedirectUrl('https://pay.cakto.com.br/fzocrfs');
+                      window.location.href = getRedirectUrl('https://pay.cakto.com.br/fzocrfs_876604');
                     }}
                     className="w-full bg-brand-lime hover:bg-lime-400 text-black shadow-xl shadow-brand-lime/20"
                   >
@@ -800,7 +803,7 @@ export default function App() {
                 <button
                   onClick={() => {
                     trackPurchase(9.90, 'Plano Básico');
-                    window.location.href = getRedirectUrl('https://pay.cakto.com.br/be9evgt');
+                    window.location.href = getRedirectUrl('https://pay.cakto.com.br/be9evgt_879702');
                   }}
                   className="text-zinc-500 hover:text-white text-xs font-bold uppercase transition-colors"
                 >
