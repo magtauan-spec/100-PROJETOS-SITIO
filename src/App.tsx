@@ -38,6 +38,61 @@ const SectionTitle = ({ children, className = "" }: { children: React.ReactNode,
   </h2>
 );
 
+const TestimonialCarousel = () => {
+  const images = [
+    "https://i.imgur.com/2bXyC4N.jpeg",
+    "https://i.imgur.com/n1cY8hr.jpeg",
+    "https://i.imgur.com/39Rsyy6.png"
+  ];
+  const [index, setIndex] = useState(0);
+
+  const next = () => setIndex((current) => (current + 1) % images.length);
+  const prev = () => setIndex((current) => (current - 1 + images.length) % images.length);
+
+  return (
+    <div className="relative group max-w-sm mx-auto px-4">
+      <div className="overflow-hidden rounded-3xl border-[6px] border-brand-lime shadow-2xl bg-white">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={index}
+            src={images[index]}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+            className="w-full h-auto"
+            referrerPolicy="no-referrer"
+          />
+        </AnimatePresence>
+      </div>
+      
+      <button 
+        onClick={prev}
+        className="absolute left-[-16px] md:left-[-32px] top-1/2 -translate-y-1/2 bg-white text-brand-lime p-2 rounded-full shadow-xl border-2 border-brand-lime hover:bg-brand-lime hover:text-white transition-all z-10"
+      >
+        <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+      </button>
+      
+      <button 
+        onClick={next}
+        className="absolute right-[-16px] md:right-[-32px] top-1/2 -translate-y-1/2 bg-white text-brand-lime p-2 rounded-full shadow-xl border-2 border-brand-lime hover:bg-brand-lime hover:text-white transition-all z-10"
+      >
+        <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+      </button>
+
+      <div className="flex justify-center gap-2 mt-6">
+        {images.map((_, i) => (
+          <button 
+            key={i} 
+            onClick={() => setIndex(i)}
+            className={`w-3 h-3 rounded-full transition-all ${i === index ? 'bg-brand-lime scale-125' : 'bg-gray-300'}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Card = ({ children, className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 ${className}`} {...props}>
     {children}
@@ -628,26 +683,10 @@ export default function App() {
 
       {/* 12. Testimonials Section */}
       <section className="bg-white text-black py-20 px-4">
-        <div className="max-w-6xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           <SectionTitle className="text-black mb-12 uppercase">QUEM JÁ USOU, <span className="bg-brand-lime px-2">APROVOU</span></SectionTitle>
-          <div className="grid md:grid-cols-3 gap-8 text-left">
-            {[
-              { name: "João Batista", role: "Produtor Rural — Uberaba MG", text: "Eu tinha um pedaço de terra aqui parado e não sabia nem por onde começar. Depois que peguei esses projetos, consegui organizar tudo e já comecei a ver resultado na produção." },
-              { name: "Carlos Henrique", role: "Pequeno Produtor — Sinop MT", text: "Eu ficava só na tentativa e erro no sítio, perdia tempo e dinheiro. Com esses projetos prontos, consegui dividir melhor o terreno e hoje já tenho retorno vindo." },
-              { name: "José Aparecido", role: "Aposentado Rural — Goiânia GO", text: "Antes eu olhava pro terreno e ficava perdido, não sabia o que fazer em cada parte. Agora já tenho tudo planejado e ficou muito mais fácil trabalhar." }
-            ].map((t, i) => (
-              <Card key={i} className="bg-gray-50 border-gray-100 flex flex-col gap-4">
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
-                </div>
-                <p className="text-gray-600 italic">"{t.text}"</p>
-                <div>
-                  <p className="font-bold">{t.name}</p>
-                  <p className="text-xs text-brand-blue">{t.role}</p>
-                </div>
-              </Card>
-            ))}
-          </div>
+          
+          <TestimonialCarousel />
         </div>
       </section>
 
